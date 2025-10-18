@@ -1,8 +1,11 @@
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-export const saveGameState = async (userId, state) => {
-  await setDoc(doc(db, 'games', userId), state);
+export const saveGameState = async (userId, data) => {
+  await setDoc(doc(db, 'games', userId), {
+    ...data,
+    lastActive: new Date(),
+  });
 };
 
 export const loadGameState = async (userId) => {
